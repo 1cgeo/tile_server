@@ -1,0 +1,50 @@
+head
+    meta(charset='utf-8',name="viewport",content="initial-scale=1,maximum-scale=1,user-scalable=no")
+    title Mapa
+    link(href="../lib/maplibre-gl.css",rel="stylesheet")
+    script(src="../lib/maplibre-gl.js")
+    style(type="text/css").
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        #menu {
+            position: absolute;
+            background: #efefef;
+            padding: 10px;
+            font-family: 'Open Sans', sans-serif;
+        }
+body
+    div(id='map')
+    div(id='menu')
+        input(id='satellite',type="radio",name="rtoggle",value="satellite")
+        label(for="satellite")
+            |Satélite
+        input(id='vector',type="radio",name="rtoggle",value="vector",checked="checked")
+        label(for="vector")
+            |Vetor
+    script.
+        var map = new maplibregl.Map({
+            container: 'map',
+            zoom: 11.5,
+            style: 'http://localhost:3000/api/v1/tiles/style/vector',
+            center: [-60.70356, 2.81598]
+        });
+        var layerList = document.getElementById('menu');
+        var inputs = layerList.getElementsByTagName('input');
+        
+        function switchLayer(layer) {
+            var layerId = layer.target.id;
+            map.setStyle('http://localhost:3000/api/v1/tiles/style/' + layerId);
+        }
+        
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].onclick = switchLayer;
+        }
+
+        
+        
+
+        
+    

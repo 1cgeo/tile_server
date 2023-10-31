@@ -1,0 +1,21 @@
+{
+  "name": "mvt-server",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mapbox/mbtiles": "^0.12.1",
+    "compression": "^1.7.4",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.8.0",
+    "memory-cache": "^0.2.0",
+    "pg": "^8.6.0",
+    "pug": "^3.0.2",
+    "sequelize": "^6.6.5"
+  }
+}

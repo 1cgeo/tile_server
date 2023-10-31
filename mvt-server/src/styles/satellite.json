@@ -1,0 +1,1627 @@
+{
+    "version": 8,
+    "name": "Mapbox Satellite Streets",
+    "sprite": "http://localhost:3000/lib/sprite",
+    "sources": {
+        "mapbox://mapbox.satellite": {
+            "tiles": [
+                "https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.webp?sku=101yZJ4GtT9T1&access_token=pk.eyJ1IjoiYnBhY2h1Y2EiLCJhIjoiY2lxbGNwaXdmMDAweGZxbmg5OGx2YWo5aSJ9.zda7KLJF3TH84UU6OhW16w"
+            ],
+            "type": "raster",
+            "tileSize": 256
+        },
+        "infra_via_deslocamento_l": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.infra_via_deslocamento_l/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "elemnat_trecho_drenagem_l": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.elemnat_trecho_drenagem_l/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "cobter_massa_dagua_a": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.cobter_massa_dagua_a/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "cobter_vegetacao_a": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.cobter_vegetacao_a/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "llp_localidade_p": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.llp_localidade_p/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "cobter_area_construida_a": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.cobter_area_construida_a/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "constr_edificacao_p": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.constr_edificacao_p/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "elemnat_terreno_sujeito_inundacao_a": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.elemnat_terreno_sujeito_inundacao_a/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "elemnat_curva_nivel_l": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.elemnat_curva_nivel_l/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "infra_pista_pouso_a": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.infra_pista_pouso_a/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "infra_pista_pouso_l": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.infra_pista_pouso_l/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "llp_limite_legal_l": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.llp_limite_legal_l/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "edicao_identificador_trecho_rod_p": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.edicao_identificador_trecho_rod_p/{z}/{x}/{y}.pbf"
+            ]
+        },
+        "infra_elemento_energia_l": {
+            "type": "vector",
+            "tiles": [
+                "http://localhost:7800/edgv.infra_elemento_energia_l/{z}/{x}/{y}.pbf"
+            ]
+        }
+    },
+    "center": [
+        -74.0053,
+        40.7123
+    ],
+    "zoom": 14,
+    "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=get_your_own_OpIi9ZULNHzrESv6T2vL",
+    "layers": [
+        {
+            "id": "background",
+            "type": "background",
+            "layout": {},
+            "paint": {
+                "background-color": "hsl(222, 56%, 4%)"
+            }
+        },
+        {
+            "id": "satellite",
+            "type": "raster",
+            "source": "mapbox://mapbox.satellite",
+            "layout": {},
+            "paint": {}
+        },
+        {
+            "id": "waterway_river",
+            "type": "line",
+            "paint": {
+                "line-color": "#a0c8f0",
+                "line-width": {
+                    "base": 1.2,
+                    "stops": [
+                        [
+                            11,
+                            0.5
+                        ],
+                        [
+                            20,
+                            6
+                        ]
+                    ]
+                }
+            },
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "regime",
+                    1
+                ],
+                [
+                    "!in",
+                    "situacao_em_poligono",
+                    2,
+                    3,
+                    4
+                ]
+            ],
+            "layout": {
+                "line-cap": "round",
+                "visibility": "visible"
+            },
+            "source": "elemnat_trecho_drenagem_l",
+            "source-layer": "edgv.elemnat_trecho_drenagem_l"
+        },
+        {
+            "id": "waterway_river_intermittent",
+            "type": "line",
+            "paint": {
+                "line-color": "#a0c8f0",
+                "line-width": {
+                    "base": 1.2,
+                    "stops": [
+                        [
+                            11,
+                            0.5
+                        ],
+                        [
+                            20,
+                            6
+                        ]
+                    ]
+                },
+                "line-dasharray": [
+                    3,
+                    2
+                ]
+            },
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "regime",
+                    3,
+                    5
+                ],
+                [
+                    "!in",
+                    "situacao_em_poligono",
+                    2,
+                    3,
+                    4
+                ]
+            ],
+            "layout": {
+                "line-cap": "round"
+            },
+            "source": "elemnat_trecho_drenagem_l",
+            "source-layer": "edgv.elemnat_trecho_drenagem_l"
+        },
+        {
+            "id": "building",
+            "type": "fill",
+            "paint": {
+                "fill-color": "rgba(189, 185, 181, 0.3)"
+            },
+            "layout": {
+                "visibility": "visible"
+            },
+            "source": "cobter_area_construida_a",
+            "source-layer": "edgv.cobter_area_construida_a"
+        },
+        {
+            "id": "airstrip",
+            "type": "fill",
+            "paint": {
+                "fill-color": "#475BCC"
+            },
+            "layout": {
+                "visibility": "visible"
+            },
+            "source": "infra_pista_pouso_a",
+            "source-layer": "edgv.infra_pista_pouso_a"
+        },
+        {
+            "id": "road_airstrip",
+            "type": "line",
+            "paint": {
+                "line-color": "#475BCC"
+            },
+            "layout": {
+                "visibility": "visible"
+            },
+            "source": "infra_pista_pouso_l",
+            "source-layer": "edgv.infra_pista_pouso_l"
+        },
+        {
+            "id": "road_intermittent",
+            "type": "line",
+            "paint": {
+                "line-color": "#fff",
+                "line-width": {
+                    "base": 1.2,
+                    "stops": [
+                        [
+                            11,
+                            0.5
+                        ],
+                        [
+                            20,
+                            6
+                        ]
+                    ]
+                },
+                "line-dasharray": [
+                    3,
+                    2
+                ]
+            },
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "tipo",
+                    3
+                ]
+            ],
+            "layout": {
+                "line-cap": "round",
+                "line-join": "round",
+                "visibility": "visible"
+            },
+            "source": "infra_via_deslocamento_l",
+            "source-layer": "edgv.infra_via_deslocamento_l"
+        },
+        {
+            "id": "road_state-bg",
+            "type": "line",
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "tipo",
+                    2,
+                    4
+                ],
+                [
+                    "==",
+                    "jurisdicao",
+                    2
+                ]
+            ],
+            "layout": {
+                "line-cap": "round",
+                "line-join": "round"
+            },
+            "paint": {
+                "line-width": [
+                    "interpolate",
+                    [
+                        "exponential",
+                        1.5
+                    ],
+                    [
+                        "zoom"
+                    ],
+                    10,
+                    1,
+                    18,
+                    2
+                ],
+                "line-color": "hsl(33, 99%, 100%)",
+                "line-gap-width": [
+                    "interpolate",
+                    [
+                        "exponential",
+                        1.5
+                    ],
+                    [
+                        "zoom"
+                    ],
+                    5,
+                    1,
+                    7,
+                    3,
+                    20,
+                    18
+                ],
+                "line-opacity": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    0,
+                    10,
+                    1
+                ]
+            },
+            "source": "infra_via_deslocamento_l",
+            "minzoom": 5,
+            "source-layer": "edgv.infra_via_deslocamento_l"
+        },
+        {
+            "id": "road_state",
+            "type": "line",
+            "paint": {
+                "line-color": "#fea",
+                "line-width": [
+                    "interpolate",
+                    [
+                        "exponential",
+                        1.5
+                    ],
+                    [
+                        "zoom"
+                    ],
+                    5,
+                    1,
+                    7,
+                    3,
+                    20,
+                    18
+                ]
+            },
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "tipo",
+                    2,
+                    4
+                ],
+                [
+                    "==",
+                    "jurisdicao",
+                    2
+                ]
+            ],
+            "layout": {
+                "line-cap": "round",
+                "line-join": "round"
+            },
+            "source": "infra_via_deslocamento_l",
+            "source-layer": "edgv.infra_via_deslocamento_l"
+        },
+        {
+            "id": "road_federal-bg",
+            "type": "line",
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "tipo",
+                    2,
+                    4
+                ],
+                [
+                    "==",
+                    "jurisdicao",
+                    1
+                ]
+            ],
+            "layout": {
+                "line-cap": "round",
+                "line-join": "round"
+            },
+            "paint": {
+                "line-width": [
+                    "interpolate",
+                    [
+                        "exponential",
+                        1.5
+                    ],
+                    [
+                        "zoom"
+                    ],
+                    10,
+                    1,
+                    18,
+                    2
+                ],
+                "line-color": "hsl(33, 99%, 100%)",
+                "line-gap-width": [
+                    "interpolate",
+                    [
+                        "exponential",
+                        1.5
+                    ],
+                    [
+                        "zoom"
+                    ],
+                    5,
+                    0.75,
+                    18,
+                    32
+                ],
+                "line-opacity": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    0,
+                    10,
+                    1
+                ]
+            },
+            "source": "infra_via_deslocamento_l",
+            "minzoom": 5,
+            "source-layer": "edgv.infra_via_deslocamento_l"
+        },
+        {
+            "id": "road_federal",
+            "type": "line",
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "tipo",
+                    2,
+                    4
+                ],
+                [
+                    "==",
+                    "jurisdicao",
+                    1
+                ]
+            ],
+            "layout": {
+                "line-cap": "round",
+                "line-join": "round"
+            },
+            "paint": {
+                "line-width": [
+                    "interpolate",
+                    [
+                        "exponential",
+                        1.5
+                    ],
+                    [
+                        "zoom"
+                    ],
+                    5,
+                    0.75,
+                    18,
+                    32
+                ],
+                "line-color": "hsl(33, 99%, 48%)",
+                "line-opacity": 1
+            },
+            "source": "infra_via_deslocamento_l",
+            "minzoom": 5,
+            "source-layer": "edgv.infra_via_deslocamento_l"
+        },
+        {
+            "id": "level_curve_normal",
+            "type": "line",
+            "paint": {
+                "line-color": "rgba(161, 127, 86, 1)",
+                "line-width": 0.3
+            },
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "indice",
+                    2
+                ]
+            ],
+            "layout": {
+                "line-cap": "round",
+                "line-join": "round",
+                "visibility": "visible"
+            },
+            "minzoom": 13,
+            "source": "elemnat_curva_nivel_l",
+            "source-layer": "edgv.elemnat_curva_nivel_l"
+        },
+        {
+            "id": "level_curve",
+            "type": "line",
+            "paint": {
+                "line-color": "rgba(161, 127, 86, 1)",
+                "line-width": 1.5
+            },
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "indice",
+                    1
+                ]
+            ],
+            "layout": {
+                "line-cap": "round",
+                "line-join": "round",
+                "visibility": "visible"
+            },
+            "minzoom": 13,
+            "source": "elemnat_curva_nivel_l",
+            "source-layer": "edgv.elemnat_curva_nivel_l"
+        },
+        {
+            "id": "contour-label",
+            "type": "symbol",
+            "metadata": {
+                "IHM:overlay": true
+            },
+            "source": "elemnat_curva_nivel_l",
+            "source-layer": "edgv.elemnat_curva_nivel_l",
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "indice",
+                    1
+                ]
+            ],
+            "layout": {
+                "text-field": "{cota}",
+                "symbol-placement": "line",
+                "text-font": [
+                    "Open Sans Cond Bold"
+                ],
+                "text-size": 16,
+                "symbol-avoid-edges": true,
+                "text-max-angle": 45,
+                "text-letter-spacing": 0.15,
+                "text-keep-upright": false
+            },
+            "paint": {
+                "text-color": "rgba(161, 127, 86, 1)",
+                "text-halo-color": "rgba(255, 255, 255,0.8)",
+                "text-halo-width": 1.5,
+                "text-halo-blur": 1.5
+            },
+            "minzoom": 13
+        },
+        {
+            "id": "power_line",
+            "type": "line",
+            "paint": {
+                "line-color": "#475BCC",
+                "line-width": 1
+            },
+            "layout": {
+                "line-cap": "round",
+                "line-join": "round",
+                "visibility": "visible"
+            },
+            "source": "infra_elemento_energia_l",
+            "source-layer": "edgv.infra_elemento_energia_l"
+        },
+        {
+            "id": "limit",
+            "type": "line",
+            "paint": {
+                "line-color": "#0a0a0a",
+                "line-width": 1.5
+            },
+            "layout": {
+                "line-cap": "round",
+                "line-join": "round",
+                "visibility": "visible"
+            },
+            "source": "llp_limite_legal_l",
+            "source-layer": "edgv.llp_limite_legal_l"
+        },
+        {
+            "id": "house",
+            "type": "symbol",
+            "filter": [
+                "all",
+                [
+                    "!in",
+                    "tipo",
+                    2429,
+                    2426,
+                    1218,
+                    1212,
+                    520,
+                    521,
+                    522,
+                    1712,
+                    601,
+                    2028,
+                    2027,
+                    2025,
+                    3001,
+                    3002,
+                    3005,
+                    3098
+                ]
+            ],
+            "layout": {
+                "icon-image": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "square_11"
+                        ]
+                    ]
+                }
+            },
+            "source": "constr_edificacao_p",
+            "source-layer": "edgv.constr_edificacao_p"
+        },
+        {
+            "id": "hangar",
+            "type": "symbol",
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "tipo",
+                    2429
+                ]
+            ],
+            "layout": {
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-offset": [
+                    0,
+                    0.75
+                ],
+                "text-rotation-alignment": "viewport",
+                "text-anchor": "top",
+                "text-letter-spacing": 0.01,
+                "text-max-width": 9,
+                "icon-size": 0.6,
+                "icon-image": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "hangar"
+                        ]
+                    ]
+                }
+            },
+            "source": "constr_edificacao_p",
+            "source-layer": "edgv.constr_edificacao_p"
+        },
+        {
+            "id": "church",
+            "type": "symbol",
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "tipo",
+                    601
+                ]
+            ],
+            "layout": {
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-offset": [
+                    0,
+                    0.75
+                ],
+                "text-rotation-alignment": "viewport",
+                "text-anchor": "top",
+                "text-letter-spacing": 0.01,
+                "text-max-width": 9,
+                "icon-image": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "religious-christian-15"
+                        ]
+                    ]
+                }
+            },
+            "source": "constr_edificacao_p",
+            "source-layer": "edgv.constr_edificacao_p"
+        },
+        {
+            "id": "college",
+            "type": "symbol",
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "tipo",
+                    520,
+                    521,
+                    522
+                ]
+            ],
+            "layout": {
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-offset": [
+                    0,
+                    0.75
+                ],
+                "text-rotation-alignment": "viewport",
+                "text-anchor": "top",
+                "text-letter-spacing": 0.01,
+                "text-max-width": 9,
+                "text-field": {
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "{nome}"
+                        ]
+                    ]
+                },
+                "icon-image": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "college-15"
+                        ]
+                    ]
+                }
+            },
+            "paint": {
+                "text-color": "hsl(51, 40%, 40%)",
+                "text-halo-color": "hsl(0, 0%, 100%)",
+                "text-halo-width": 1
+            },
+            "source": "constr_edificacao_p",
+            "source-layer": "edgv.constr_edificacao_p"
+        },
+        {
+            "id": "hospital",
+            "type": "symbol",
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "tipo",
+                    2028,
+                    2027,
+                    2025
+                ]
+            ],
+            "layout": {
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-offset": [
+                    0,
+                    0.75
+                ],
+                "text-rotation-alignment": "viewport",
+                "text-anchor": "top",
+                "text-letter-spacing": 0.01,
+                "text-max-width": 9,
+                "icon-image": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "hospital-15"
+                        ]
+                    ]
+                }
+            },
+            "source": "constr_edificacao_p",
+            "source-layer": "edgv.constr_edificacao_p"
+        },
+        {
+            "id": "police",
+            "type": "symbol",
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "tipo",
+                    3001,
+                    3002,
+                    3005,
+                    3098
+                ]
+            ],
+            "layout": {
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-offset": [
+                    0,
+                    0.75
+                ],
+                "text-rotation-alignment": "viewport",
+                "text-anchor": "top",
+                "text-letter-spacing": 0.01,
+                "text-max-width": 9,
+                "icon-image": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "police-15"
+                        ]
+                    ]
+                }
+            },
+            "source": "constr_edificacao_p",
+            "source-layer": "edgv.constr_edificacao_p"
+        },
+        {
+            "id": "farm",
+            "type": "symbol",
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "tipo",
+                    1212
+                ]
+            ],
+            "layout": {
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-offset": [
+                    0,
+                    0.75
+                ],
+                "text-rotation-alignment": "viewport",
+                "text-anchor": "top",
+                "text-letter-spacing": 0.01,
+                "text-max-width": 9,
+                "text-field": {
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "{nome}"
+                        ]
+                    ]
+                },
+                "icon-size": 0.25,
+                "icon-image": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "farm"
+                        ]
+                    ]
+                }
+            },
+            "paint": {
+                "text-color": "hsl(209, 100%, 1%)",
+                "text-halo-color": "hsl(0, 0%, 100%)",
+                "text-halo-width": 1
+            },
+            "source": "constr_edificacao_p",
+            "source-layer": "edgv.constr_edificacao_p"
+        },
+        {
+            "id": "quarter",
+            "type": "symbol",
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "tipo",
+                    1712
+                ]
+            ],
+            "layout": {
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-offset": [
+                    0,
+                    0.75
+                ],
+                "text-rotation-alignment": "viewport",
+                "text-anchor": "top",
+                "text-letter-spacing": 0.01,
+                "text-max-width": 9,
+                "text-field": {
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "{nome}"
+                        ]
+                    ]
+                },
+                "icon-image": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "stadium-15"
+                        ]
+                    ]
+                }
+            },
+            "paint": {
+                "text-color": "#735139",
+                "text-halo-color": "hsl(0, 0%, 100%)",
+                "text-halo-width": 1
+            },
+            "source": "constr_edificacao_p",
+            "source-layer": "edgv.constr_edificacao_p"
+        },
+        {
+            "id": "airport",
+            "type": "symbol",
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "tipo",
+                    2426
+                ]
+            ],
+            "layout": {
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-offset": [
+                    0,
+                    0.75
+                ],
+                "text-rotation-alignment": "viewport",
+                "text-anchor": "top",
+                "text-field": {
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "{nome}"
+                        ]
+                    ]
+                },
+                "text-letter-spacing": 0.01,
+                "text-max-width": 9,
+                "icon-size": 1.5,
+                "icon-image": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            8,
+                            ""
+                        ],
+                        [
+                            12,
+                            "airport-15"
+                        ]
+                    ]
+                }
+            },
+            "paint": {
+                "text-color": "hsl(230, 48%, 44%)",
+                "text-halo-color": "hsl(0, 0%, 100%)",
+                "text-halo-width": 1
+            },
+            "source": "constr_edificacao_p",
+            "source-layer": "edgv.constr_edificacao_p"
+        },
+        {
+            "id": "road-label-f",
+            "type": "symbol",
+            "source": "edicao_identificador_trecho_rod_p",
+            "source-layer": "edgv.edicao_identificador_trecho_rod_p",
+            "minzoom": 10,
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "jurisdicao",
+                    1
+                ],
+                [
+                    "==",
+                    "carta_mini",
+                    false
+                ]
+            ],
+            "layout": {
+                "text-field": [
+                    "get",
+                    "sigla"
+                ],
+                "text-size": 9,
+                "icon-image": "de-motorway-3",
+                "text-font": [
+                    "DIN Offc Pro Bold",
+                    "Arial Unicode MS Bold"
+                ]
+            },
+            "paint": {
+                "text-color": "hsl(0, 0%, 100%)",
+                "text-translate": [
+                    0,
+                    0
+                ]
+            }
+        },
+        {
+            "id": "road-label-s",
+            "type": "symbol",
+            "source": "edicao_identificador_trecho_rod_p",
+            "source-layer": "edgv.edicao_identificador_trecho_rod_p",
+            "minzoom": 10,
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "jurisdicao",
+                    2
+                ],
+                [
+                    "==",
+                    "carta_mini",
+                    false
+                ]
+            ],
+            "layout": {
+                "text-field": [
+                    "get",
+                    "sigla"
+                ],
+                "text-size": 9,
+                "icon-image": "rectangle-yellow-3",
+                "text-font": [
+                    "DIN Offc Pro Bold",
+                    "Arial Unicode MS Bold"
+                ]
+            },
+            "paint": {
+                "text-color": "hsl(0, 100%, 0%)",
+                "text-translate": [
+                    0,
+                    0
+                ]
+            }
+        },
+        {
+            "id": "city-label",
+            "type": "symbol",
+            "source": "llp_localidade_p",
+            "source-layer": "edgv.llp_localidade_p",
+            "minzoom": 12,
+            "filter": [
+                "all",
+                [
+                    "in",
+                    "tipo",
+                    1,
+                    4,
+                    6,
+                    7,
+                    8
+                ],
+                [
+                    "==",
+                    "carta_mini",
+                    false
+                ]
+            ],
+            "layout": {
+                "icon-image": "dot-11",
+                "text-field": "{nome}",
+                "text-line-height": 1.1,
+                "text-max-width": 6,
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-anchor": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    "center",
+                    7,
+                    "center"
+                ],
+                "text-offset": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "match",
+                        [
+                            "get",
+                            "text_anchor"
+                        ],
+                        "bottom",
+                        [
+                            "literal",
+                            [
+                                0,
+                                -0.25
+                            ]
+                        ],
+                        "bottom-left",
+                        [
+                            "literal",
+                            [
+                                0.2,
+                                -0.05
+                            ]
+                        ],
+                        "left",
+                        [
+                            "literal",
+                            [
+                                0.4,
+                                0.05
+                            ]
+                        ],
+                        "top-left",
+                        [
+                            "literal",
+                            [
+                                0.2,
+                                0.05
+                            ]
+                        ],
+                        "top",
+                        [
+                            "literal",
+                            [
+                                0,
+                                0.25
+                            ]
+                        ],
+                        "top-right",
+                        [
+                            "literal",
+                            [
+                                -0.2,
+                                0.05
+                            ]
+                        ],
+                        "right",
+                        [
+                            "literal",
+                            [
+                                -0.4,
+                                0.05
+                            ]
+                        ],
+                        "bottom-right",
+                        [
+                            "literal",
+                            [
+                                -0.2,
+                                -0.05
+                            ]
+                        ],
+                        [
+                            "literal",
+                            [
+                                0,
+                                -0.25
+                            ]
+                        ]
+                    ],
+                    7,
+                    [
+                        "literal",
+                        [
+                            0,
+                            0
+                        ]
+                    ]
+                ],
+                "text-justify": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "match",
+                        [
+                            "get",
+                            "text_anchor"
+                        ],
+                        [
+                            "bottom",
+                            "top"
+                        ],
+                        "center",
+                        [
+                            "left",
+                            "bottom-left",
+                            "top-left"
+                        ],
+                        "left",
+                        [
+                            "right",
+                            "bottom-right",
+                            "top-right"
+                        ],
+                        "right",
+                        "center"
+                    ],
+                    7,
+                    "center"
+                ],
+                "text-size": [
+                    "interpolate",
+                    [
+                        "cubic-bezier",
+                        0.2,
+                        0,
+                        0.7,
+                        1
+                    ],
+                    [
+                        "zoom"
+                    ],
+                    1,
+                    [
+                        "step",
+                        [
+                            "get",
+                            "symbolrank"
+                        ],
+                        11,
+                        4,
+                        9,
+                        5,
+                        8
+                    ],
+                    9,
+                    [
+                        "step",
+                        [
+                            "get",
+                            "symbolrank"
+                        ],
+                        28,
+                        4,
+                        22,
+                        5,
+                        21
+                    ]
+                ]
+            },
+            "paint": {
+                "icon-opacity": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "case",
+                        [
+                            "has",
+                            "text_anchor"
+                        ],
+                        1,
+                        0
+                    ],
+                    7,
+                    0
+                ],
+                "text-color": "hsl(0, 0%, 0%)",
+                "text-halo-color": [
+                    "interpolate",
+                    [
+                        "linear"
+                    ],
+                    [
+                        "zoom"
+                    ],
+                    2,
+                    "rgba(255,255,255,0.75)",
+                    3,
+                    "hsl(0, 0%, 100%)"
+                ],
+                "text-halo-width": 1.25
+            }
+        },
+        {
+            "id": "capital-label",
+            "type": "symbol",
+            "source": "llp_localidade_p",
+            "source-layer": "edgv.llp_localidade_p",
+            "minzoom": 1,
+            "maxzoom": 12,
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "tipo",
+                    2
+                ],
+                [
+                    "==",
+                    "carta_mini",
+                    false
+                ]
+            ],
+            "layout": {
+                "icon-image": "dot-11",
+                "text-field": "{nome}",
+                "text-line-height": 1.1,
+                "text-max-width": 6,
+                "text-font": [
+                    "DIN Offc Pro Medium",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-anchor": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    "center",
+                    7,
+                    "center"
+                ],
+                "text-offset": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "match",
+                        [
+                            "get",
+                            "text_anchor"
+                        ],
+                        "bottom",
+                        [
+                            "literal",
+                            [
+                                0,
+                                -0.25
+                            ]
+                        ],
+                        "bottom-left",
+                        [
+                            "literal",
+                            [
+                                0.2,
+                                -0.05
+                            ]
+                        ],
+                        "left",
+                        [
+                            "literal",
+                            [
+                                0.4,
+                                0.05
+                            ]
+                        ],
+                        "top-left",
+                        [
+                            "literal",
+                            [
+                                0.2,
+                                0.05
+                            ]
+                        ],
+                        "top",
+                        [
+                            "literal",
+                            [
+                                0,
+                                0.25
+                            ]
+                        ],
+                        "top-right",
+                        [
+                            "literal",
+                            [
+                                -0.2,
+                                0.05
+                            ]
+                        ],
+                        "right",
+                        [
+                            "literal",
+                            [
+                                -0.4,
+                                0.05
+                            ]
+                        ],
+                        "bottom-right",
+                        [
+                            "literal",
+                            [
+                                -0.2,
+                                -0.05
+                            ]
+                        ],
+                        [
+                            "literal",
+                            [
+                                0,
+                                -0.25
+                            ]
+                        ]
+                    ],
+                    7,
+                    [
+                        "literal",
+                        [
+                            0,
+                            0
+                        ]
+                    ]
+                ],
+                "text-justify": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "match",
+                        [
+                            "get",
+                            "text_anchor"
+                        ],
+                        [
+                            "bottom",
+                            "top"
+                        ],
+                        "center",
+                        [
+                            "left",
+                            "bottom-left",
+                            "top-left"
+                        ],
+                        "left",
+                        [
+                            "right",
+                            "bottom-right",
+                            "top-right"
+                        ],
+                        "right",
+                        "center"
+                    ],
+                    7,
+                    "center"
+                ],
+                "text-size": [
+                    "interpolate",
+                    [
+                        "cubic-bezier",
+                        0.2,
+                        0,
+                        0.7,
+                        1
+                    ],
+                    [
+                        "zoom"
+                    ],
+                    1,
+                    [
+                        "step",
+                        [
+                            "get",
+                            "symbolrank"
+                        ],
+                        11,
+                        4,
+                        9,
+                        5,
+                        8
+                    ],
+                    9,
+                    [
+                        "step",
+                        [
+                            "get",
+                            "symbolrank"
+                        ],
+                        28,
+                        4,
+                        22,
+                        5,
+                        21
+                    ]
+                ]
+            },
+            "paint": {
+                "icon-opacity": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    [
+                        "case",
+                        [
+                            "has",
+                            "text_anchor"
+                        ],
+                        1,
+                        0
+                    ],
+                    7,
+                    0
+                ],
+                "text-color": "hsl(0, 0%, 0%)",
+                "text-halo-color": [
+                    "interpolate",
+                    [
+                        "linear"
+                    ],
+                    [
+                        "zoom"
+                    ],
+                    2,
+                    "rgba(255,255,255,0.75)",
+                    3,
+                    "hsl(0, 0%, 100%)"
+                ],
+                "text-halo-width": 1.25
+            }
+        }
+    ],
+    "visibility": "public",
+    "created": "1970-01-01T00:00:00.000Z",
+    "modified": "1970-01-01T00:00:00.000Z",
+    "owner": "mapbox",
+    "id": "satellite-streets-v11",
+    "draft": false
+}

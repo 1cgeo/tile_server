@@ -1,0 +1,139 @@
+head
+    meta(charset='utf-8',name="viewport",content="initial-scale=1,maximum-scale=1,user-scalable=no")
+    title Mapa
+    link(href="/lib/maplibre-gl.css",rel="stylesheet")
+    script(src="/lib/maplibre-gl.js")
+    link(href="/lib/dist-jsoneditor/jsoneditor.css",rel="stylesheet")
+    script(src="/lib/dist-jsoneditor/jsoneditor.js")
+    script(src="/lib/jquery.min.js")
+    link(href="/lib/material.icon.css",rel="stylesheet")
+    link(href="/lib/materialize.min.css",rel="stylesheet")
+    script(src="/lib/js.cookie.min.js")
+    style(type="text/css").
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+        .wrapper {
+            display: flex;
+        }
+        #editorWindow {
+            flex-basis: 35%;
+            width: 0;
+        }
+        #jsoneditor{
+            height: 96vh;
+        }
+
+        .navigation {
+            height: 4vh;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-end;
+            
+            list-style: none;
+            margin: 0; 
+            background: #3883fa;
+        }
+
+        @media all and (max-width: 800px) {
+            .navigation {
+                justify-content: space-around;
+            }
+        }
+
+        @media all and (max-width: 600px) {
+            .navigation {
+                flex-flow: column wrap;
+                padding: 0;
+            }
+            .navigation a { 
+                text-align: center; 
+                padding: 10px;
+                border-top: 1px solid rgba(255, 255, 255,0.3); 
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+            }
+            .navigation li:last-of-type a {
+                border-bottom: none;
+            }
+        }
+body
+    div(class='wrapper')
+        div(id='editorWindow')
+            div(class="navigation")
+                button(id="save",class="btn waves-effect waves-light grey darken-3")
+                    |Salvar
+                    i(class="material-icons right")
+                        |send
+            div(id="jsoneditor")
+        div(id='map')
+        
+    script.
+        
+        $('#save').on('click', async () => {
+            await commitStyle()
+        })
+
+        function loadStyle(){
+            let storedStyle = localStorage.getItem('style')
+            if(storedStyle){
+                console.log(storedStyle)
+                let style = JSON.parse(storedStyle)
+                map.setStyle(style)
+                editor.set(style)
+            } else {
+                $.getJSON('http://localhost:3000/api/v1/tiles/style/vector', (style) => {
+                    localStorage.setItem('style', JSON.stringify(style))
+                    map.setStyle(style)
+                    editor.set(style)
+                    
+                });
+            }   
+        }
+
+        async function commitStyle(){
+            $.ajax({
+                async:false,
+                url:'http://localhost:3000/api/v1/tiles/style',
+                type:"POST",
+                data:{
+                    style: JSON.stringify(editor.get()),
+                },
+                success:function(data){
+                    
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+
+                }
+            })
+            loadStyle()
+        }
+        
+        var fullStyle = {}
+
+        var map = new maplibregl.Map({
+            container: 'map',
+            zoom: 8,
+            center: [-60.932, 3.335]
+        });
+
+        const container = document.getElementById('jsoneditor')
+        const options = {
+            mode: 'code',
+            modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
+            onChangeText: (jsonString) => {
+                if(jsonString){
+                    localStorage.setItem('style', jsonString)
+                    map.setStyle(JSON.parse(jsonString))
+                }
+            }
+        }
+        const editor = new JSONEditor(container, options)
+        editor.set(fullStyle)
+
+        loadStyle()
+    script(src="/lib/materialize.min.js")    
